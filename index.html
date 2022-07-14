@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <style>
+        body{
+            font-size: 32px;
+        }
+        .button{
+            height: 30px;
+            width: 60px;
+            font-size: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <form name="todoForm">
+        <table>
+            <tbody>
+                <tr>
+                    <td><label for="todo">Todo</label></td>
+                    <td><input type="text" id="todo" name="todo"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="add" class="button" id="add">
+                </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <h1>TodoList</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Filter:</th>
+                <th><input type="search" name="search" id="search"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="button" value="done" class="button"></td>
+                <td>Todo description</td>
+            </tr>
+        </tbody>
+    </table>
+<script>
+    // const todolist = [];
+
+    // document.forms['todoForm'].onsubmit = function (event) {
+    //     // event.preventDefault();
+
+    //     const todo = document.forms['todoForm']['todo'].value;
+    //     todolist.push(todo);
+
+    //     console.log(todolist);
+    // }
+
+    let kegiatan = document.getElementById('todo');
+    let tombolSubmit = document.getElementById('add');
+
+    const todolist = [];
+    tombolSubmit.addEventListener('click', function (event) {
+        event.preventDefault();
+        let todo = kegiatan.value;
+        todolist.push(todo);
+
+        console.log(todolist);
+
+        document.forms['todoForm'].reset();
+        
+    })
+   
+</script>    
+</body>
+</html>
