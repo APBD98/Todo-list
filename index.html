@@ -11,7 +11,7 @@
         }
         .button{
             height: 30px;
-            width: 60px;
+            width: 80px;
             font-size: 20px;
         }
 
@@ -42,7 +42,7 @@
                 <th><input type="search" name="search" id="search"></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="display">
             <tr>
                 <td><input type="button" value="done" class="button"></td>
                 <td>Todo description</td>
@@ -63,8 +63,71 @@
 
     let kegiatan = document.getElementById('todo');
     let tombolSubmit = document.getElementById('add');
+    let  todolistBody = document.getElementById('display');
+    let searchInput = document.getElementById('search');
+    
 
-    const todolist = [];
+    const todolist = [ 
+        "Belajar Javascript Dasar",
+        "Belajar Javascript DOM",
+        "Belajar Javascript Modules"];
+
+    function clearTodoList() {
+        while (todolistBody.firstChild) {
+            todolistBody.removeChild(todolistBody.firstChild);
+        }
+        
+    }
+
+    function removeTodoList(index) {
+        todolist.splice(index, 1);
+        displayTodoList();
+        
+    }
+
+    function addTodoList(index, todo) {
+        const td = document.createElement('td');
+        const input = document.createElement('input');
+        input.type = "button";
+        input.value = "done";
+        input.onclick = function () {
+            removeTodoList(index);
+        } ;
+        input.classList.add('button');
+
+        td.appendChild(input);
+
+        const tr = document.createElement('tr');
+
+        tr.appendChild(td);
+
+        const tdDescription = document.createElement('td');
+        const textDescription = document.createTextNode(todo);
+
+        tdDescription.appendChild(textDescription);
+        tr.appendChild(tdDescription);
+
+        todolistBody.appendChild(tr);
+    }
+
+    function displayTodoList() {
+        clearTodoList();
+
+        for (let i = 0; i < todolist.length; i++) {
+            const todo = todolist[i];
+
+            let searchText = searchInput.value.toLowerCase();
+
+            if(todo.toLowerCase().includes(searchText)){
+                addTodoList(i, todo);
+            }
+           
+        }
+    }
+
+    
+
+
     tombolSubmit.addEventListener('click', function (event) {
         event.preventDefault();
         let todo = kegiatan.value;
@@ -74,7 +137,22 @@
 
         document.forms['todoForm'].reset();
         
+        displayTodoList();
     })
+
+    searchInput.addEventListener('keyup', function() {
+
+        displayTodoList();
+
+    })
+
+    searchInput.addEventListener('keydown', function () {
+
+        displayTodoList();
+
+    })
+
+    displayTodoList();
    
 </script>    
 </body>
